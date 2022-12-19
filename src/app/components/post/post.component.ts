@@ -58,7 +58,7 @@ export class PostCardComponent implements OnInit, OnChanges {
   @Input() post: Post;
 
   constructor(private postsApi: PostsApiService) {
-    console.log('consctructor');
+    console.log('constructor');
   }
 
   removePost(id: string): void {
