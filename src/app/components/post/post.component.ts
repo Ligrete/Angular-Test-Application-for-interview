@@ -51,7 +51,9 @@ export class PostCardComponent implements OnInit, OnChanges {
   @Output() removed = new EventEmitter<any>();
   post: any;
 
-  constructor(private postsApi: PostsApiService) {}
+  constructor(private postsApi: PostsApiService) {
+    console.log('one');
+  }
 
   removePost(id: string): void {
     this.removed.emit(id);
@@ -63,9 +65,13 @@ export class PostCardComponent implements OnInit, OnChanges {
       this.post = post;
       this.postsApi.postViewed(this.postId).subscribe();
     });
+
+    console.log('two');
   }
 
   ngOnChanges(): void {
     console.log("ngOnChanges", this.postId);
+
+    console.log('three');
   }
 }
