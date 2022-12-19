@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
+    ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -10,24 +11,26 @@ import {
 } from '@angular/core';
 import { switchMap, take, takeLast, tap } from 'rxjs';
 
+export interface Post {
+  id: string;
+  title: string;
+  description: string;
+  target?: any
+}
+
 import { PostsApiService } from '../../services/posts-api.service';
-/**
- * This component shows details about specific post.
- **/
+
 @Component({
   standalone: true,
   imports: [CommonModule],
   selector: 'app-post',
   template: `
     <ng-container *ngIf="post">
-      <h1>{{ post.title }}</h1>
+      <h1>{{ post.title }} {{ post.target.createdAt }}</h1>
       <button (click)="removePost(post.id)">Remove</button>
     </ng-container>
   `,
   styles: [
-    /**
-     * Как убрать вложенные подписки?
-     */
     `
       :host {
         width: 100%;
@@ -39,13 +42,13 @@ import { PostsApiService } from '../../services/posts-api.service';
         display: flex;
         align-content: center;
         align-items: center;
-        flex-direction: row;
         justify-content: flex-start;
         gap: 16px;
         margin: 16px auto;
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PostCardComponent implements OnInit, OnChanges {
   /**
@@ -53,7 +56,7 @@ export class PostCardComponent implements OnInit, OnChanges {
    */
   @Input() postId: string;
   @Output() removed = new EventEmitter<any>();
-  post: any;
+  @Input() post: Post;
 
   constructor(private postsApi: PostsApiService) {
     console.log('consctructor');
@@ -64,6 +67,16 @@ export class PostCardComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    console.log('ngOnInit()');
+
+    if(this.postId) this.getPost(this.postId);
+  }
+
+  ngOnChanges(): void {
+    console.log('ngOnChanges()', this.post);
+  }
+
+  getPost(id: string): void {
     /**
      * Как убрать вложенные подписки?
      */
@@ -71,11 +84,5 @@ export class PostCardComponent implements OnInit, OnChanges {
       this.post = post;
       this.postsApi.postViewed(this.postId).subscribe();
     });
-
-    console.log('ngOnInit()');
-  }
-
-  ngOnChanges(): void {
-    console.log('ngOnChanges()');
   }
 }
