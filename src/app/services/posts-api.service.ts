@@ -9,6 +9,7 @@ export class PostsApiService {
   constructor() { }
 
   getPostById(id: string) {
+    console.log('getPostById', id);
     const posts = 
       [
         {
@@ -33,6 +34,7 @@ export class PostsApiService {
   }
 
   postViewed(id: string) {
+    console.log('postViewed', id);
     return of(true).pipe(delay(500))
   }
 

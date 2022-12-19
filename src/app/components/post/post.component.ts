@@ -1,4 +1,4 @@
-import { CommonModule } from "@angular/common";
+import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -7,16 +7,17 @@ import {
   OnInit,
   Output,
   SimpleChanges,
-} from "@angular/core";
+} from '@angular/core';
+import { switchMap, take, takeLast, tap } from 'rxjs';
 
-import { PostsApiService } from "../../services/posts-api.service";
+import { PostsApiService } from '../../services/posts-api.service';
 /**
  * This component shows details about specific post.
  **/
 @Component({
   standalone: true,
   imports: [CommonModule],
-  selector: "app-post",
+  selector: 'app-post',
   template: `
     <ng-container *ngIf="post">
       <h1>{{ post.title }}</h1>
@@ -24,6 +25,9 @@ import { PostsApiService } from "../../services/posts-api.service";
     </ng-container>
   `,
   styles: [
+    /**
+     * Как убрать вложенные подписки?
+     */
     `
       :host {
         width: 100%;
@@ -52,7 +56,7 @@ export class PostCardComponent implements OnInit, OnChanges {
   post: any;
 
   constructor(private postsApi: PostsApiService) {
-    console.log('one');
+    console.log('consctructor');
   }
 
   removePost(id: string): void {
@@ -60,18 +64,18 @@ export class PostCardComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    /**
+     * Как убрать вложенные подписки?
+     */
     this.postsApi.getPostById(this.postId).subscribe((post: any) => {
-      console.log(this.postId, post);
       this.post = post;
       this.postsApi.postViewed(this.postId).subscribe();
     });
 
-    console.log('two');
+    console.log('ngOnInit()');
   }
 
   ngOnChanges(): void {
-    console.log("ngOnChanges", this.postId);
-
-    console.log('three');
+    console.log('ngOnChanges()');
   }
 }
