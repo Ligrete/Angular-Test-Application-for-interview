@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
-    ChangeDetectionStrategy,
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -15,7 +15,7 @@ export interface Post {
   id: string;
   title: string;
   description: string;
-  target?: any
+  target?: any;
 }
 
 import { PostsApiService } from '../../services/posts-api.service';
@@ -48,8 +48,10 @@ import { PostsApiService } from '../../services/posts-api.service';
       }
     `,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
+/**
+ * Angular Lifecycle hooks - в каком порядке вызовутся console.log
+ */
 export class PostCardComponent implements OnInit, OnChanges {
   /**
    * Если изменить на объект post, что изменится?
@@ -69,7 +71,7 @@ export class PostCardComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     console.log('ngOnInit()');
 
-    if(this.postId) this.getPost(this.postId);
+    if (this.postId) this.getPost(this.postId);
   }
 
   ngOnChanges(): void {
@@ -80,9 +82,9 @@ export class PostCardComponent implements OnInit, OnChanges {
     /**
      * Как убрать вложенные подписки?
      */
-    this.postsApi.getPostById(this.postId).subscribe((post: any) => {
+    this.postsApi.getPostById(id).subscribe((post: any) => {
       this.post = post;
-      this.postsApi.postViewed(this.postId).subscribe();
+      this.postsApi.postViewed(id).subscribe();
     });
   }
 }
