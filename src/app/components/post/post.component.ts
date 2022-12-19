@@ -1,15 +1,12 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
 } from '@angular/core';
-import { switchMap, take, takeLast, tap } from 'rxjs';
 
 export interface Post {
   id: string;
