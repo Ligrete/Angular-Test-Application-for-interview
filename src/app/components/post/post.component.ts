@@ -27,7 +27,7 @@ import { PostsApiService } from "../../services/posts-api.service";
     `
   :host {
     width: 100%;
-    bacground: red;
+    background: rgba(236, 234, 249, 0.5);
   }
   `,
   ],
