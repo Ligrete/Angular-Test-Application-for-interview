@@ -25,11 +25,22 @@ import { PostsApiService } from "../../services/posts-api.service";
   `,
   styles: [
     `
-  :host {
-    width: 100%;
-    background: rgba(236, 234, 249, 0.5);
-  }
-  `,
+      :host {
+        width: 100%;
+        background-color: rgba(236, 234, 249, 0.5);
+        border: #c39ada69 1px solid;
+        height: 50px;
+        padding: 15px;
+        box-sizing: border-box;
+        display: flex;
+        align-content: center;
+        align-items: center;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 16px;
+        margin: 16px auto;
+      }
+    `,
   ],
 })
 export class PostCardComponent implements OnInit, OnChanges {
